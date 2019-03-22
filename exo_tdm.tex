@@ -1,0 +1,211 @@
+\documentclass[12pt,a4paper]{exprog}
+
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,amsmath}
+\usepackage{multicol,array}
+\usepackage{graphicx,color,tikz}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{times,mathptmx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+\newcommand{\IR}{{\mathbb R}}
+\newcommand{\IC}{\mathbb{C}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\I}{\mathbf{i}}
+\newcommand{\IZ}{\mathbb{Z}}
+\newcommand{\IN}{\mathbf{N}}
+\newcommand{\Th}{\text{Th}}
+
+\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\sh}{sh}
+
+\@ifundefined{leqslant}{}{\let\le=\leqslant}
+\@ifundefined{geqslant}{}{\let\ge=\geqslant}
+
+%% Intervals
+\newcommand{\intervalcc}[1]{\mathopen[#1\mathclose]}
+\newcommand{\intervaloo}[1]{\mathopen]#1\mathclose[}
+\newcommand{\intervaloc}[1]{\mathopen]#1\mathclose]}
+\newcommand{\intervalco}[1]{\mathopen[#1\mathclose[}
+\newcommand{\bigintervalcc}[1]{\bigl[#1\bigr]}
+
+% Vrai/Faux
+\newcommand\drawbox{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
+      \hrule}\vrule}}
+
+\newcounter{VF}
+
+\newenvironment{VF}{\bgroup
+  \def\VF@label{\textsf{(\alph{VF})} Vrai~: \drawbox\quad Faux~: \drawbox}%
+  \begin{VF@gen}
+  }{%
+  \end{VF@gen}
+  \egroup}
+
+\newenvironment{VF*}{\bgroup
+  \def\VF@label{\textsf{(\alph{VF})} \drawbox}%
+  \begin{VF@gen}
+  }{%
+  \end{VF@gen}
+  \egroup}
+
+\newenvironment{VF@gen}{%
+  \bgroup
+  \ifnum\@itemdepth >\thr@@ \@toodeep   \else
+    \advance\@itemdepth\@ne
+    \setcounter{VF}{0}%
+    \expandafter\list{\addtocounter{VF}{1}%
+      \gdef\@currentlabel{\alph{VF}}%
+      \VF@label}{%
+      \settowidth{\labelwidth}{\VF@label}%
+      \addtolength{\labelwidth}{6pt}%
+      \setlength{\labelsep}{1em}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemindent}{0pt}%
+      \setlength{\topsep}{10.0pt plus 4.0pt minus 6.0pt}%
+      \setlength{\itemsep}{5.0pt plus 2.5pt minus 1.0pt}%
+      \def\makelabel##1{\hss \llap{##1}}%
+    }%
+    \fi
+}{%
+  \global\advance\@listdepth\m@ne \endtrivlist
+  \egroup
+}
+
+\newenvironment{answer}{%
+%  \setbox0=\vbox  % comment to see the answers
+  \bgroup
+  \par
+  \color[RGB]{150,25,150}%
+}{%
+  \egroup
+}
+
+\renewcommand{\phi}{\varphi}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\course{Théorie des modèles}
+\title{Exercices}
+
+\begin{document}
+\maketitle
+\newcommand{\str}[1]{\mathcal{#1}}
+\newcommand{\Ll}{\mathcal{L}}
+
+
+\begin{question}
+Soient $\str{M}$ une $\Ll$-structure, $A$ un sous-ensemble de $M$ et $a\in M$. On
+dit que $a$ est \emph{algébrique} sur $A$ s'il existe une formule
+$\phi(x,y_{1},\ldots,y_{n})$ et $a_{1},\ldots,a_{n}\in A$ tels que
+$\str{M}\models\phi(a,a_{1},\ldots,a_{n})$ et l'ensemble $\{b\in
+M|\str{M}\models\phi(b,a_{1},\ldots,a_{n})\}$ est fini. On note $\text{acl}^{\str{M}}(A)$
+l'ensemble des éléments de $M$ algébriques sur $A$.
+\begin{enumerate}
+  \item $A\subset\text{acl}^{\str{M}}(A)$;
+  \item si $a\in\text{acl}^{\str{M}}(A)$, alors
+    $a\in\text{acl}^{\str{M}}(A_{0})$ pour
+    un certain $A_{0}\subset A$ fini;
+  \item si $A\subset B$, alors $\text{acl}^{\str{M}}(A)\subset\text{acl}^{\str{M}}(B)$;
+  \item  $\text{acl}^{\str{M}}(\text{acl}^{\str{M}}(A))=\text{acl}^{\str{M}}(A)$.
+  \item Supposons que $A\neq\emptyset$. L'ensemble $\text{acl}^{\str{M}}(A)$ est-il le
+    domaine d'une sous-structure de $\str{M}$?
+  \item Si $\str{M}\prec\str{N}$, alors
+    $\text{acl}^{\str{M}}(A)=\text{acl}^{\str{N}}(A)$.
+  \item Soit $\str{K}$ un corps algébriquement clos et $A\subset K$. Que vaut $\text{acl}^{\str{K}}(A)$?
+\end{enumerate}
+\end{question}
+\begin{question}
+  Soit $\str{M}$ une $\Ll$-structure et $A\subset M$. Soit $D\subset M^{n}$
+  définissable sur $A$. Alors $\sigma(D)=D$ pour tout $\sigma\in\text{Aut}_{A}(\str{M})$.
+\end{question}
+\begin{question}
+  Soit $\Ll=\{0,1,+,\cdot,<\}$, $\str{N}=(\mathbf{N},0,1,+,\cdot,<)$ et
+  $T=\text{Th}(\str{N})$. Alors il existe $\str{M}\succ\str{N}$ et $a\in M$ tels que
+  $\mathbf{N}<a$ et $a$ est divisible par $n$ pour tout $n\in\mathbf{N}$.
+\end{question}
+\begin{question}
+  $\str{M}\prec\str{N}$ si et seulement si pour tout $\bar{a}\in M$, $\text{tp}^{\str{M}}(\bar{a})=\text{tp}^{\str{N}}(\bar{a})$.
+\end{question}
+\begin{question}
+  Soit $\str{M}$ une $\Ll$-structure et $A\subset M$.
+  \begin{enumerate}
+  \item Soit $D\subset M^{n+1}$ définissable sur $A$. Alors la projection de $D$
+    sur $M^{n}$ est définissable sur $A$.
+  \item On dit d'une fonction $f:M^{\ell}\to M^{k}$ qu'elle est
+    \emph{définissable} sur $A$ si son graphe est un sous-ensemble de
+    $M^{\ell+k}$ définissable sur $A$.
+    \begin{enumerate}
+    \item Soit $\str{K}$ un corps. Montrez que l'application
+      $\text{det}:K^{2\times 2}\to K$ est définissable.
+    \item Donnez d'autres exemples de fonctions définissables.
+    \end{enumerate}
+  \end{enumerate}
+\end{question}
+\begin{question}
+  Soit $\str{M}$ une $\Ll$-structure et posons $T=\text{Th}(\str{M})$. Soient
+  $c_{1},\ldots,c_{n}$ des constantes qui ne sont pas dans $\Ll$. Soit $T'$ une
+  $\Ll\cup\{c_{1},\cdots,c_{n}\}$-théorie complète contenant $T$ et notons
+  $p(x_{1},\ldots,x_{n})$ l'ensemble de $\Ll$-formules
+$\{\phi(x_{1},\ldots,x_{n})|\phi(c_{1},\ldots,c_{n})\in T'\}$. Alors, il existe
+$\str{N}\models T$ et $\bar{a}\in N$ tels que $\text{tp}^{\str{N}}(\bar{a})=p(x_{1},\ldots,x_{n})$.
+\end{question}
+\begin{question}
+  Soit $\Ll=\{+,-,0,\cdot q|q\in\mathbf{Q}\}$, où $\cdot q$ est un symbole de
+  fonction unaire. Soit $T_{\mathbf{Q}}$ la $\Ll$-théorie des
+  $\mathbf{Q}$-espaces vectoriels.
+  \begin{enumerate}
+  \item Donnez une axiomatisation de $T_{\mathbf{Q}}$;
+  \item montrez que, dans $T_{\mathbf{Q}}$, toute formule existentielle est
+    équivalente à une formule sans quantificateurs;
+  \item en déduire que $T_{\mathbf{Q}}$ a l'élimination des quantificateurs;
+  \item montrez que $\mathbf{R}$, vu comme $\mathbf{Q}$-espace vectoriel, est
+    l'union d'une chaîne élémentaire de $\mathbf{Q}$-sous-espaces vectoriels
+    propres.
+  \end{enumerate}
+\end{question}
+
+\begin{question}
+  En admettant que $ACF$ a l'élimination des quantificateurs, montrez que
+  $(\mathbf{C},+,-,\cdot,0,1)$ est l'union d'une chaîne propre de corps
+  algébriquement clos.
+\end{question}
+
+\begin{question}
+  Soit $\Ll=\{E\}$, où $E$ est un symbole de relation binaire.
+  \begin{enumerate}
+  \item Soit $T_{1}$ la théorie qui exprime la propriété suivante: $E$ est une
+    relation d'équivalence ayant, pour chaque $n\in\mathbf{N}^{>0}$, une unique
+    classe d'équivalence contenant $n$ éléments.
+    \begin{enumerate}
+    \item Axiomatisez $T_{1}$;
+    \item $T_{1}$ est-elle $\aleph_{0}$-catégorique?
+    \item montrez que $|S_{1}(T)|\ge\aleph_{0}$;
+    \item Montrez que $T_{1}$ n'a pas l'élimination des quantificateurs;
+    \item Soit $\Ll'=\Ll\cup\{c_{n}|n\in\IN^{>0}\}$. Soit $T'_{1}$ la
+      $\Ll'$-théorie contenant $T$ exprimant le fait que $c_{n}$ est en relation
+      avec exactement $n$ éléments, pour chaque $n\in\mathbf{N}$. Montrez que
+      $T'_{1}$ a l'élimination des quantificateurs.
+    \end{enumerate}
+  \item Soit $T_{2}$ la théorie qui exprime la propriété suivante: $E$ est une
+    relation d'équivalence ayant une infinite de classes d'équivalence, toutes
+    infinies.
+    \begin{enumerate}
+    \item $T_{2}$ est-elle $\aleph_{0}$-catégorique?
+    \item $T$ a-t-elle l'élimination des quantificateurs?
+    \end{enumerate}
+  \end{enumerate}
+\end{question}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
