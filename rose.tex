@@ -1,36 +1,110 @@
-\documentclass[a4paper, 12pt]{article}
+\documentclass[12pt,a4paper]{exprog}
 
+\usepackage[francais]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
-\usepackage{amsmath, amssymb, amsthm, verbatim}
-\usepackage{IEEEtrantools}
-\usepackage[margin=1in]{geometry}
+\usepackage{amssymb,amsmath, amsthm}
+\usepackage{multicol,array}
+\usepackage{graphicx,color,tikz}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{times,mathptmx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+\newcommand{\IR}{{\mathbb R}}
+\newcommand{\IC}{\mathbb{C}}
+\newcommand{\C}{{\mathcal C}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\I}{\mathbf{i}}
+\newcommand{\IZ}{\mathbb{Z}}
+\newcommand{\IN}{\mathbf{N}}
+\newcommand{\Th}{\text{Th}}
+
+\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\sh}{sh}
+
+\@ifundefined{leqslant}{}{\let\le=\leqslant}
+\@ifundefined{geqslant}{}{\let\ge=\geqslant}
+
+%% Intervals
+\newcommand{\intervalcc}[1]{\mathopen[#1\mathclose]}
+\newcommand{\intervaloo}[1]{\mathopen]#1\mathclose[}
+\newcommand{\intervaloc}[1]{\mathopen]#1\mathclose]}
+\newcommand{\intervalco}[1]{\mathopen[#1\mathclose[}
+\newcommand{\bigintervalcc}[1]{\bigl[#1\bigr]}
+
+% Vrai/Faux
+\newcommand\drawbox{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
+      \hrule}\vrule}}
+
+\newcounter{VF}
+
+\newenvironment{VF}{\bgroup
+  \def\VF@label{\textsf{(\alph{VF})} Vrai~: \drawbox\quad Faux~: \drawbox}%
+  \begin{VF@gen}
+  }{%
+  \end{VF@gen}
+  \egroup}
+
+\newenvironment{VF*}{\bgroup
+  \def\VF@label{\textsf{(\alph{VF})} \drawbox}%
+  \begin{VF@gen}
+  }{%
+  \end{VF@gen}
+  \egroup}
+
+\newenvironment{VF@gen}{%
+  \bgroup
+  \ifnum\@itemdepth >\thr@@ \@toodeep   \else
+    \advance\@itemdepth\@ne
+    \setcounter{VF}{0}%
+    \expandafter\list{\addtocounter{VF}{1}%
+      \gdef\@currentlabel{\alph{VF}}%
+      \VF@label}{%
+      \settowidth{\labelwidth}{\VF@label}%
+      \addtolength{\labelwidth}{6pt}%
+      \setlength{\labelsep}{1em}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemindent}{0pt}%
+      \setlength{\topsep}{10.0pt plus 4.0pt minus 6.0pt}%
+      \setlength{\itemsep}{5.0pt plus 2.5pt minus 1.0pt}%
+      \def\makelabel##1{\hss \llap{##1}}%
+    }%
+    \fi
+}{%
+  \global\advance\@listdepth\m@ne \endtrivlist
+  \egroup
+}
+
+\newenvironment{answer}{%
+%  \setbox0=\vbox  % comment to see the answers
+  \bgroup
+  \par
+  \color[RGB]{150,25,150}%
+}{%
+  \egroup
+}
+
+\renewcommand{\phi}{\varphi}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \usepackage[colorlinks, linkcolor=blue]{hyperref}
-\usepackage{epigraph}
-\usepackage{mathrsfs}
-\usepackage{tikz-cd}
-\usepackage{xcolor}
-\usepackage{dsfont}
 
-
-\newcommand{\ind}{\mathds{1}}
-\newcommand{\ssi}{si et seulement si}
-\newcommand{\st}{\ensuremath \mathrm{st}}
-\renewcommand{\Re}{\mathrm{Re}}
-\renewcommand{\Im}{\mathrm{Im}}
-
-\newcommand{\lstar}[1]{\ensuremath \!\!\!\phantom{i}^*#1}
-\newcommand{\rstar}{\lstar\mathbb{R}}
 \title{Cahier rose}
-\author{Théorie des modèles I}
-\date{\today}
+\course{Théorie des modèles I}
 
-
+\theoremstyle{definition} \newtheorem{thm}{Th\'{e}or\`{e}me}
 \theoremstyle{definition} \newtheorem{quest}{Question}
 \theoremstyle{definition} \newtheorem{dev}[quest]{Devoir}
 
-\newcommand{\tp}[2]{\mathrm{tp}^{\mathscr{#1}}\left(#2\right)}
+\newcommand{\tp}[2]{\mathrm{tp}^{\mathcal{#1}}\left(#2\right)}
 
 \begin{document}
 \maketitle
@@ -42,7 +116,7 @@
 \end{quest}
 
 \begin{quest}
-  Soient $\mathscr M$, $\mathscr N$ deux $\mathscr L$-structures,
+  Soient $\mathcal M$, $\mathcal N$ deux $\mathcal L$-structures,
   $\bar{a}\in M^n$ et $\bar{b}\in N^n$.
 
   Montrer que $\tp{M}{\bar{a}} = \tp{N}{\bar{b}}$ est équivalent
@@ -51,12 +125,12 @@
 \end{quest}
 
 \begin{quest}
-  Soit $\mathscr{L}$ un langage et $\mathscr{M}$ une $\mathscr L$-%
+  Soit $\mathcal{L}$ un langage et $\mathcal{M}$ une $\mathcal L$-%
   structure.
   \begin{enumerate}
-  \item Définir l'expression \og $\mathscr M$ est $\kappa$-saturée\fg{},
+  \item Définir l'expression \og $\mathcal M$ est $\kappa$-saturée\fg{},
     où $\kappa$ est un cardinal.
-  \item Existe-t-il une $\mathscr L$-structure infinie $\mathscr N$
+  \item Existe-t-il une $\mathcal L$-structure infinie $\mathcal N$
     $|N|^+$-saturée (où si $\kappa$ est un cardinal, $\kappa^+$ désigne
     le successeur de $\kappa$)?
 
@@ -64,15 +138,15 @@
 \end{quest}
 
 \begin{dev}
-  Soit $\mathscr L = \{ +, -, 0, \cdot q, q\in\mathbb Q\}$ où
+  Soit $\mathcal L = \{ +, -, 0, \cdot q, q\in\mathbb Q\}$ où
   $\cdot q$ est un symbole de fonction unaire.
 
-  Soit $T_{\mathbb Q}$ la $\mathscr L$-théorie des $\mathbb Q$-espaces
+  Soit $T_{\mathbb Q}$ la $\mathcal L$-théorie des $\mathbb Q$-espaces
   vectoriels non triviaux.
   \begin{enumerate}
   \item Donner une axiomatisation de $T_{\mathbb Q}$.
   \item Montrer que $T_{\mathbb Q}$ admet l'élimination
-    des quantificateurs (dans le langage $\mathscr L$).
+    des quantificateurs (dans le langage $\mathcal L$).
     \begin{enumerate}
     \item Montrer que dans $T_{\mathbb Q}$, toute formule
       existentielle est équivalente à une formule sans quantificateur.
@@ -86,8 +160,8 @@
 \end{dev}
 
 \begin{quest}
-  Soit $\mathscr L=\{+, -, \cdot, 0, 1\}$.
-  Soit $K$ un corps commutatif vu comme $\mathscr L$-structure.
+  Soit $\mathcal L=\{+, -, \cdot, 0, 1\}$.
+  Soit $K$ un corps commutatif vu comme $\mathcal L$-structure.
   Soit $M_2(K)$ l'anneau des matrices $2\times 2$ à coefficients
   dans $K$.
 
@@ -108,16 +182,16 @@
 \end{quest}
 
 \begin{dev}
-  Soit $E$ un symbole de relation binaire $\mathscr L= \{E\}$.
-  \'{E}crire une $\mathscr L$-théorie qui exprime que $E$ est
+  Soit $E$ un symbole de relation binaire $\mathcal L= \{E\}$.
+  \'{E}crire une $\mathcal L$-théorie qui exprime que $E$ est
   une relation d'équivalence avec pour chaque naturel $n\geq 1$
   une seule classe d'équivalence contenant exactement $n$ éléments.
   \begin{enumerate}
   \item $T$ est-elle $\aleph_0$ catégorique?
   \item Montrer que $|S_1(T)|\geq \aleph_0$.
-  \item Comme $\mathscr L$ ne contient pas de constante,
+  \item Comme $\mathcal L$ ne contient pas de constante,
     on dira que $T$ a l'élimination des quantificateurs
-    si pour tout $\mathscr L$-formule $\varphi(x_1, \ldots, x_n)$,
+    si pour tout $\mathcal L$-formule $\varphi(x_1, \ldots, x_n)$,
     il existe une formule sans quantificateur
     $\psi(x_1, \ldots, x_{n+1})$ telle que
     $$T\models \forall x_1 \ldots \forall x_{n+1}
@@ -132,8 +206,8 @@
 \end{quest}
 
 \begin{dev}
-  Soit $\mathscr{L}= \{+, -, \cdot, 0, 1\}$ et
-  $\mathscr{L}_{<} = \mathscr{L}\cup \{<\}$.
+  Soit $\mathcal{L}= \{+, -, \cdot, 0, 1\}$ et
+  $\mathcal{L}_{<} = \mathcal{L}\cup \{<\}$.
   \begin{enumerate}
   \item Montrer que dans la théorie des anneaux ordonnés, toute
     formule sans quantificateur $\psi(x_1, \ldots, x_n)$ peut
@@ -144,14 +218,14 @@
     avec $p_j(x_1, \ldots, x_n)$,
     $q_k(x_1, \ldots, x_n)\in\mathbb Z[x_1, \ldots, x_n]$
   \item Montrer que $(\mathbb R, +, -, \cdot, 0, 1, <)$ n'a pas
-    l'élimination des quantificateurs dans le langage $\mathscr L$.
+    l'élimination des quantificateurs dans le langage $\mathcal L$.
   \end{enumerate}
 
 \end{dev}
 
-% \begin{thm}[Tarski]
-%   $(\mathbb R, +, -, \cdot, 0, 1, <)$ a l'eq. dans le langage $\mathscr L_{<}$.
-% \end{thm}
+\begin{thm}[Tarski]
+  $(\mathbb R, +, -, \cdot, 0, 1, <)$ a l'élimination des quantificateurs. dans le langage $\mathcal L_{<}$.
+\end{thm}
 
 
 \end{document}
