@@ -1,0 +1,137 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb, amsthm, verbatim}
+\usepackage{IEEEtrantools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks, linkcolor=blue]{hyperref}
+\usepackage{epigraph}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\usepackage{dsfont}
+
+
+\newcommand{\ind}{\mathds{1}}
+\newcommand{\ssi}{si et seulement si}
+\newcommand{\st}{\ensuremath \mathrm{st}}
+\renewcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Im}{\mathrm{Im}}
+
+\newcommand{\lstar}[1]{\ensuremath \!\!\!\phantom{i}^*#1}
+\newcommand{\rstar}{\lstar\mathbb{R}}
+\title{Cahier rose}
+\author{Théorie des modèles I}
+\date{\today}
+
+
+\theoremstyle{definition} \newtheorem{quest}{Question}
+\theoremstyle{definition} \newtheorem{dev}[quest]{Devoir}
+
+\newcommand{\tp}[2]{\mathrm{tp}^{\mathscr{#1}}\left(#2\right)}
+
+\begin{document}
+\maketitle
+
+\begin{quest}
+  Donner une axiomatisation de la théorie des groupes abéliens
+  sans torsion, divisibles das le langage $\{+, -, 0\}$. Cette
+  théorie est-elle $\aleph_0$-catégorique?
+\end{quest}
+
+\begin{quest}
+  Soient $\mathscr M$, $\mathscr N$ deux $\mathscr L$ structures,
+  $\bar{a}\in M^n$ et $\bar{b}\in N^n$.
+
+  Montrer que $\tp{M}{\bar{a}} = \tp{N}{\bar{b}}$ est équivalent
+  à $f: M\to N: \bar{a}\mapsto \bar{b}$ est une application
+  partielle élémentaire.
+\end{quest}
+
+\begin{quest}
+  Soit $\mathscr{L}$ un langage et $\mathscr{M}$ une $\mathscr L$-%
+  structure.
+  \begin{enumerate}
+  \item Définir l'expression \og $\mathscr M$ est $\kappa$-saturée,
+    où $\kappa$ est un cardinal.
+  \item Existe-t-il une $\mathscr L$-structure infinie $\mathscr N$
+    $|N|^+$-saturée (où si $\kappa$ est un cardinal, $\kappa^+$ désigne
+    le successeur de $\kappa$).
+  \end{enumerate}
+\end{quest}
+
+\begin{dev}
+  Soit $\mathscr L = \{ +, -, 0, \cdot q, q\in\mathbb Q\}$ où
+  $\cdot q$ est un symbole de fonction unaire.
+
+  Soit $T_{\mathbb Q}$ la $\mathscr L$-théorie des $\mathbb Q$-espaces
+  vectoriels non triviaux.
+  \begin{enumerate}
+  \item Donner une axiomatisation de $\mathbb T_{\mathbb Q}$.
+  \item Montrer que $T_{\mathbb Q}$ admet l'élimination
+    des quantificateurs (dans le langage $\mathscr L$).
+    \begin{enumerate}
+    \item Montrer que dans $T_{\mathbb Q}$, toute formule
+      existentielle est équivalente à une formule sans quantificateur.
+    \item En déduire que $T_{\mathbb Q}$ a l'éliminatation
+      des quantificateurs.
+    \end{enumerate}
+  \item Montrer que $\mathbb R$ vu comme $\mathbb Q$-espace
+    vectoriel est l'union d'une chaîne élémentaire de
+    $\mathbb Q$-sous-espaces vectoriels propres.
+  \end{enumerate}
+\end{dev}
+
+\begin{quest}
+  Soit $\mathscr L=\{+, -, \cdot, 0, 1\}$.
+  Soit $K$ un corps commutatif vu comme $\mathscr L$-structure.
+  Soit $M_2(K)$ l'anneau des matrices $2\times 2$ à coefficients
+  dans $K$.
+
+  Montrer que le groupe des matrices inversibles de $M_2(K)$
+  est un sous-ensemble définissable de $K^4$, modulo
+  l'identification suivante:
+  \begin{equation*}
+    \left( \begin{matrix}
+        a_{1 1} & a_{1 2} \\
+        a_{2 1} & a_{2 2}
+      \end{matrix} \right)\in M_2(K)
+    \rightarrow (a_{1 1}, a_{1 2}, a_{2 1}, a_{2 2}) \in K^4
+  \end{equation*}
+\end{quest}
+
+\begin{quest}
+  \'{E}noncer le théorème de Lowenheim-Skolem descendant.
+\end{quest}
+
+\begin{dev}
+  Soit $E$ un symbole de relation binaire $\mathscr L= \{E\}$.
+  \'{E}crire une $\mathscr L$-théorie qui exprime que $E$ est
+  une relation d'équivalence avec pour chaque naturel $n\geq 1$
+  une seule classe d'équivalence contenant exactement $n$ éléments.
+  \begin{enumerate}
+  \item $T$ est-elle $\aleph_0$ catégorique?
+  \item Montrer que $|S_1(T)|\geq \aleph_0$.
+  \item Comme $\mathscr L$ ne contient pas de constante,
+    on dira que $T$ a l'élimination des quantificateurs
+    si pour tout $\mathscr L$ formule $\varphi(x_1, \ldots, x_n)$,
+    il existe une formule sans quantificateur
+    $\psi(x_1, \ldots, x_{n+1})$ telle que
+    $$T\models \forall x_1 \ldots \forall x_{n+1}
+    (\varphi\leftrightarrow \psi).$$
+    Est-ce que $T$ a l'élimination des quantificateurs? Justifiez
+    votre réponse.
+  \end{enumerate}
+\end{dev}
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
