@@ -15,6 +15,7 @@
 
 \newcommand{\IR}{{\mathbb R}}
 \newcommand{\IC}{\mathbb{C}}
+\newcommand{\IQ}{\mathbf{Q}}
 \newcommand{\C}{{\mathcal C}}
 \newcommand{\U}{\mathcal{U}}
 \newcommand{\I}{\mathbf{i}}
@@ -201,6 +202,45 @@ $\str{N}\models T$ et $\bar{a}\in N$ tels que $\text{tp}^{\str{N}}(\bar{a})=p(x_
     \begin{enumerate}
     \item $T_{2}$ est-elle $\aleph_{0}$-catégorique?
     \item $T$ a-t-elle l'élimination des quantificateurs?
+    \end{enumerate}
+  \end{enumerate}
+\end{question}
+
+\begin{question}
+  Soit $\Ll=\{<\}$ et notons $T=\text{DLO}$ la théorie des ordres totaux denses
+  sans extrémité.
+  \begin{enumerate}
+  \item Axiomatisez $T$;
+  \item Décrire les formules sans quantificateur, à équivalence modulo $T$;
+  \item Montrez que $T$ a l'élimination des quantificateurs;
+  \item $T$ est-elle complète?
+  \item Soit $\str{M}$ une $\Ll$-structure et soit $A\subset M$. Soient $U,L$
+    deux sous-ensembles de $A$. On dira que $(L,U)$ est une coupure de $A$ si
+    $A=L\cup U$, $L\cap
+    U=\emptyset$ et $L<U$, c'est-à-dire que pour tout $a\in L$ et tout $b\in U$,
+    $a<b$\footnote{Remarquez que l'on autorise $L=\emptyset$ ou $U=\emptyset$
+      dans la définition de coupure.}.
+    Supposons que $\str{M}\models T$. Soit $p\in S_{1}(A)$ et notons
+    $L_{p}$ (resp. $U_{p}$) l'ensemble
+    $\{a|a<x\in p\}$ (resp. $\{b|\neg(b<x)\in p)\}$).
+    \begin{enumerate}
+    \item Montrez que si $p\in S_{1}(A)$ est réalisé par un élément de $A$,
+      alors $p$ est isolé;
+    \item Montrez que le couple
+      $(L_{p},U_{p})$ est une coupure;
+    \item Soient $p$ et $q$ deux types sur $A$, non réalisés dans $A$. Montrez
+      que $p\neq q$ implique $(L_{p},U_{p})\neq (L_{q},U_{q})$;
+    \item Etant donnée une coupure $(L,U)$ de $A$, l'ensemble
+      \[\{a<x|a\in L\}\cup\{\neg(b<x)|b\in U\}\]
+      détermine-t-il un type non réalisé dans $A$?
+    \end{enumerate}
+  \item Supposons que $\str{M}=(\IQ,<)$ et soit $A\subset \IQ$.
+    \begin{enumerate}
+    \item Quels sont les types à paramètres dans $A$ qui sont
+      isolés\footnote{Distinguez en fonction de l'existence d'extrema dans
+        $L_{p}$ et $U_{p}$.}?
+    \item Donnez des exemples de types omis par $\str{M}$;
+    \item Calculez $|S_{1}(\IQ)|$.
     \end{enumerate}
   \end{enumerate}
 \end{question}
