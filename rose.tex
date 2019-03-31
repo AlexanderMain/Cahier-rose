@@ -209,11 +209,14 @@
   Soit $\mathcal{L}= \{+, -, \cdot, 0, 1\}$ et
   $\mathcal{L}_{<} = \mathcal{L}\cup \{<\}$.
   \begin{enumerate}
-  \item Montrer que dans la théorie des anneaux ordonnés, toute
+  \item\sloppypar Montrer que dans la théorie des anneaux ordonnés, toute
     formule sans quantificateur $\psi(x_1, \ldots, x_n)$ peut
     se mettre sous la forme
     \begin{equation}
-      \bigvee\limits_i \left (\bigwedge\limits_j p_j(\bar{x}) > 0 \land \bigwedge\limits_k q_k(\bar{x})=0\right)
+      \bigvee\limits_i \left(
+        \bigwedge\limits_j p_j(\bar{x}) > 0 \land
+        \bigwedge\limits_k q_k(\bar{x})=0
+      \right)
     \end{equation}
     avec $p_j(x_1, \ldots, x_n)$,
     $q_k(x_1, \ldots, x_n)\in\mathbb Z[x_1, \ldots, x_n]$
@@ -224,9 +227,13 @@
 \end{dev}
 
 \begin{thm}[Tarski]
-  $(\mathbb R, +, -, \cdot, 0, 1, <)$ a l'élimination des quantificateurs. dans le langage $\mathcal L_{<}$.
+  $(\mathbb R, +, -, \cdot, 0, 1, <)$ a l'élimination des
+  quantificateurs. dans le langage $\mathcal L_{<}$.
 \end{thm}
 
+\begin{quest}
+  \'{E}noncer la définition de modèle atomique.
+\end{quest}
 
 \end{document}
 
